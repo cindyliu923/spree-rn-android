@@ -13,7 +13,8 @@ export const accountReducer = (state = initialState, action = {}) => {
     case SIGN_IN:
       return {
         ...state,
-        token: action.token
+        token: action.token,
+        name: action.name
       }
     default:
       return state
@@ -21,9 +22,10 @@ export const accountReducer = (state = initialState, action = {}) => {
 }
 
 // Action Creators
-const signIn = (token) => ({ 
+const signIn = (token, name) => ({ 
   type: SIGN_IN,
-  token: token
+  token: token,
+  name: name
 });
 
 export const apiSignIn = (username, password) => async (dispatch, getState) => {
@@ -37,7 +39,7 @@ export const apiSignIn = (username, password) => async (dispatch, getState) => {
   // 'spree123'
   console.log(result.success())
   if (result.isSuccess()) {
-    return dispatch(signIn(result.success().access_token));
+    return dispatch(signIn(result.success().access_token, username));
   }
 }
 

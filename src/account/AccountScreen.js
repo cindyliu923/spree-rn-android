@@ -15,13 +15,12 @@ const AccountScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const token = useSelector(state => state.account.token);
-
-  console.log(token)
+  const name = useSelector(state => state.account.name);
 
   return (
     <SafeAreaView>
       {
-        token ? <Text>{username}</Text> : 
+        token ? <Text>Hi! {name}</Text> : 
         <View style={{paddingTop: 10, paddingBottom: 10 }}>
         <TextInput 
           style={{ height: 50, borderColor: 'gray', borderWidth: 1 }}          

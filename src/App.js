@@ -15,11 +15,14 @@ import {
   Animated
 } from 'react-native';
 
-import { Provider } from 'react-redux';
-import store from './reduxStore';
-
 import HomeScreen from './home/HomeScreen';
 import AccountScreen from './account/AccountScreen';
+
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import configureStore from './reduxStore';
+
+const { store, persistor } = configureStore();
 
 const forFade = ({ current, next }) => {
   const opacity = Animated.add(
@@ -43,24 +46,26 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <StatusBar barStyle="dark-content" />
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{
-              headerTintColor: 'white',
-              headerStyle: { backgroundColor: 'pink' },
-            }}
-          />
-          <Stack.Screen
-            name="Account"
-            component={AccountScreen}
-            options={{ headerStyleInterpolator: forFade }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <StatusBar barStyle="dark-content" />
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                headerTintColor: 'white',
+                headerStyle: { backgroundColor: 'pink' },
+              }}
+            />
+            <Stack.Screen
+              name="Account"
+              component={AccountScreen}
+              options={{ headerStyleInterpolator: forFade }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 };
