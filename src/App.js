@@ -17,6 +17,7 @@ import {
 
 import HomeScreen from './home/HomeScreen';
 import AccountScreen from './account/AccountScreen';
+import OrderScreen from './account/OrderScreen';
 
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -61,6 +62,11 @@ const App = () => {
             <Stack.Screen
               name="Account"
               component={AccountScreen}
+              options={{ headerStyleInterpolator: forFade }}
+            />
+            <Stack.Screen
+              name="Order"
+              component={OrderScreen}
               options={{ headerStyleInterpolator: forFade }}
             />
           </Stack.Navigator>
